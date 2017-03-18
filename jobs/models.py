@@ -16,6 +16,9 @@ class JobCategory(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        verbose_name_plural="JobCategories"
+
 
 class Job(models.Model):
     position = models.CharField(max_length=128)
@@ -30,6 +33,11 @@ class Job(models.Model):
 
     def __str__(self):
         return self.position, self.organisation
+
+class UserLogin(models.Model):
+    username=models.CharField(max_length=128)
+    password=models.CharField(max_length=128)
+
 
 
 
