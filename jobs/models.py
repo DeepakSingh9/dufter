@@ -2,6 +2,7 @@ from __future__ import unicode_literals
 
 from django.db import models
 from django.template.defaultfilters import slugify
+from django.contrib.auth.models import User
 
 
 # Create your models here.
@@ -31,13 +32,17 @@ class Job(models.Model):
     slug = models.SlugField(unique=True)
     jobcategory = models.ForeignKey(JobCategory)
 
+
     def __str__(self):
         return self.position, self.organisation
 
-class UserLogin(models.Model):
-    username=models.CharField(max_length=128)
-    password=models.CharField(max_length=128)
 
+class Profile(models.Model):
+    user=models.OneToOneField(User,max_length=128)
+    date_of_birth=models.DateField()
+    photo=models.ImageField(upload_to='user/%y/%m/%d',blank=True)
+    keyskills=models.CharField(max_length=128)
+    experience=models.IntegerField()
 
 
 
