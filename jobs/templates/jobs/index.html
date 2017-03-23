@@ -2,9 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Home</title>
 </head>
 <body>
+{% if user.is_authenticated %}
+<h2>hello {{user.username}} !!!</h2>
+{% endif %}
+
 
 </body>
 </html>

@@ -1,14 +1,20 @@
 from django.shortcuts import render,redirect
-from django.http import HttpResponse
+from django.http import HttpResponse,HttpResponseRedirect
 from django.contrib.auth import login,authenticate
-from .forms import UserRegistrationForm
 from django.views.generic import View
+
 
 
 # Create your views here.
 from .models import JobCategory,Job,Profile
-from .forms import UserRegistrationForm,UserEditForm,ProfileEditForm
 from django.contrib.auth.decorators import login_required
+from .forms import UserForm,UserProfileForm
+
+
+
+def home_view(request):
+    return render(request,'jobs/index.html')
+
 
 
 def Job_Category_List(request):
@@ -19,37 +25,58 @@ def Job_Category_List(request):
 
 
 
-def user_registration(request):
+def registration(request):
+    registered=False
+
+
     if request.method=='POST':
-        user_form=UserRegistrationForm(request.POST)
-        if user_form.is_valid():
-            new_user=user_form.save(commit=False)
-            new_user.set_password(user_form.cleaned_data['password'])
-            profile=Profile.objects.create(user=new_user)
-            new_user.save()
-            return render(request,'jobs/registeration.html',{'new_user':new_user})
-    else:
-        user_form=UserRegistrationForm
-    return render(request,'jobs/registeration.html',{'user_form':user_form})
-
-
-
-
-@login_required
-def edit(request):
-    if request.method=='POST':
-        user_form=UserEditForm(instance=request.user,
-                               data=request.POST)
-        profile_form=ProfileEditForm(instance=request.user.profile,
-                                     data=request.POST,
-                                     files=request.FILES)
+        user_form=UserForm(request.POST)
+        profile_form=UserProfileForm(request.POST)
 
         if user_form.is_valid() and profile_form.is_valid():
-            user_form.save()
-            profile_form.save()
+            user=user_form.save(commit=False)
+            user.set_password(user.password)
+            user.save()
+
+            profile=profile_form.save(commit=False)
+            profile.user=user
+            profile.save()
+            registered=True
+
+        else:
+            print user_form.errors,profile_form.errors
+
+
 
     else:
-        user_form=UserEditForm(instance=request.user)
-        profile_form=ProfileEditForm(instance=request.user.profile)
+        profile_form=UserProfileForm()
+        user_form=UserForm()
 
-    return render(request,'jobs/accountedit.html',{'user_form':user_form,'profile_form':profile_form})
+    return render(request,'jobs/registeration.html',{'user_form':user_form,'profile_form':profile_form,'registered':registered})
+
+
+
+
+
+
+def User_login(request):
+    if request.method=='POST':
+        username=request.POST['username']
+        password=request.POST['password']
+
+        user=authenticate(username=username,password=password)
+
+
+        if user is not None:
+            if user.is_active:
+                login(request,user)
+                return redirect('/jobs/')
+            else:
+                return HttpResponse("Your account is disabled")
+        else:
+            print 'invalid login details :{0},{1}'.format(username,password)
+            return HttpResponse("invalid login details")
+
+
+
+    return render(request,'jobs/login.html',{})

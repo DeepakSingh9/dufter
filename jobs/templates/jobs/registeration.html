@@ -5,10 +5,17 @@
     <title>register</title>
 </head>
 <body>
+
+{% if registered %}
+<p>Thankyou for registering you can now <a href="{% url 'login' %}">login</a> to your account</p>
+{% else %}
+
 <form action="." method="POST">
     {{user_form.as_p}}
+    {{profile_form.as_p}}
     {% csrf_token %}
     <input type="submit" value="create my account">
 </form>
+{% endif %}
 </body>
 </html>

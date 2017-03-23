@@ -34,15 +34,15 @@ class Job(models.Model):
 
 
     def __str__(self):
-        return self.position, self.organisation
+        return self.position
 
 
 class Profile(models.Model):
     user=models.OneToOneField(User,max_length=128)
-    date_of_birth=models.DateField()
-    photo=models.ImageField(upload_to='user/%y/%m/%d',blank=True)
-    keyskills=models.CharField(max_length=128)
-    experience=models.IntegerField()
+    date_of_birth=models.DateField(blank=True,null=True)
+    photo=models.ImageField(upload_to='user/%y/%m/%d',blank=True,null=True)
+    keyskills=models.CharField(max_length=128,blank=True,null=True)
+    experience=models.IntegerField(blank=True,null=True)
 
-
-
+    def __str__(self):
+        return self.user.username
