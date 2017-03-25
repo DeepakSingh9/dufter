@@ -7,8 +7,39 @@
 <body>
 {% if user.is_authenticated %}
 <h2>hello {{user.username}} !!!</h2>
+{%else%}
+<p>hello !!!</p>
 {% endif %}
+<hr>
+<div class="tabs">
+    <ul>
+    <li>
+    <p><a href="{% url 'registeration' %}">Register</a></p>
+        </li>
+        <li>
+            <p><a href="{% url 'login' %}">login</a></p>
+        </li>
+    </ul>
+</div>
+<div>
+{% for categories in category_list %}
+    {{categories.name}}
+    {% for all in job %}
+        {% if categories == all.jobcategory %}
+             <ul>
+                 <li><b>{{all.position}}</b>
+                     <h6>{{all.organisation}}</h6>
+                     <h6>{{all.location}}</h6>
+                     <h6>{{all.keyskills}}</h6>
+                     <h6>{{all.summary}}</h6>
+                 </li>
+
+             </ul>
+        {% endif %}
+    {% endfor %}
+{% endfor %}
 
 
+</div>
 </body>
 </html>

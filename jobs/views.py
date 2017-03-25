@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse,HttpResponseRedirect
-from django.contrib.auth import login,authenticate
+from django.contrib.auth import login,authenticate,logout
 from django.views.generic import View
 
 
@@ -13,14 +13,17 @@ from .forms import UserForm,UserProfileForm
 
 
 def home_view(request):
-    return render(request,'jobs/index.html')
+    category_list = JobCategory.objects.all()
+    job = Job.objects.all()
+    return render(request, 'jobs/index.html', {'category_list': category_list, 'job': job})
+
 
 
 
 def Job_Category_List(request):
     category_list=JobCategory.objects.all()
     job=Job.objects.all()
-    return render(request,'index.html',{'category_list':category_list,'job':job})
+    return render(request,'jobs/index.html',{'category_list':category_list,'job':job})
 
 
 
@@ -80,3 +83,10 @@ def User_login(request):
 
 
     return render(request,'jobs/login.html',{})
+
+
+@login_required()
+def User_Logout(request):
+    logout(request)
+
+    return HttpResponseRedirect('/jobs/')
