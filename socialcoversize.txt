@@ -1,0 +1,4 @@
+facebook: WIDTH=828px
+	   HIEGHT 360px
+
+Twitter:1500px by 500px

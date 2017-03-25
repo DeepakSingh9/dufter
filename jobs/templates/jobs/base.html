@@ -1,0 +1,38 @@
+{% load staticfiles %}
+
+<html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% block title %}{% endblock %}
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <link href='//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="{% static 'css/jobs.css' %}">
+</head>
+<body>
+{% if user.is_authenticated %}
+<h2>hello {{user.username}} !!!</h2>
+
+<p><a href="{% url 'logout' %}">logout</a></p>
+
+
+{%else%}
+<p>hello !!!</p>
+
+<hr>
+<div class="tabs">
+    <ul>
+    <li>
+    <p><a href="{% url 'registeration' %}">Register</a></p>
+        </li>
+        <li>
+            <p><a href="{% url 'login' %}">login</a></p>
+        </li>
+    </ul>
+</div>
+{% endif %}
+{% block content %}
+{% endblock %}
+</body>
+</html>

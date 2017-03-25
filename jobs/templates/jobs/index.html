@@ -1,26 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Home</title>
-</head>
-<body>
-{% if user.is_authenticated %}
-<h2>hello {{user.username}} !!!</h2>
-{%else%}
-<p>hello !!!</p>
-{% endif %}
-<hr>
-<div class="tabs">
-    <ul>
-    <li>
-    <p><a href="{% url 'registeration' %}">Register</a></p>
-        </li>
-        <li>
-            <p><a href="{% url 'login' %}">login</a></p>
-        </li>
-    </ul>
-</div>
+{% extends 'jobs/base.html' %}
+
+    {% block title %}Home{% endblock %}
+
+    {% block content %}
+
 <div>
 {% for categories in category_list %}
     {{categories.name}}
@@ -41,5 +24,4 @@
 
 
 </div>
-</body>
-</html>
+    {% endblock %}
