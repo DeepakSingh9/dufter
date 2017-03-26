@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
 from django.http import HttpResponse,HttpResponseRedirect
 from django.contrib.auth import login,authenticate,logout
 from django.views.generic import View
@@ -14,16 +14,16 @@ from .forms import UserForm,UserProfileForm
 
 def home_view(request):
     category_list = JobCategory.objects.all()
-    job = Job.objects.all()
+    job = Job.objects.all()[:5]
     return render(request, 'jobs/index.html', {'category_list': category_list, 'job': job})
 
 
 
 
-def Job_Category_List(request):
-    category_list=JobCategory.objects.all()
+def Category_Job_List(request,pk):
+    category=JobCategory.objects.get(pk=pk)
     job=Job.objects.all()
-    return render(request,'jobs/index.html',{'category_list':category_list,'job':job})
+    return render(request,'jobs/category_job_list.html',{'category':category,'job':job})
 
 
 

@@ -6,7 +6,7 @@
 
 <div>
 {% for categories in category_list %}
-    {{categories.name}}
+    <p><a href="{% url 'category_job_list' pk=categories.pk %}">{{categories.name}}</a></p>
     {% for all in job %}
         {% if categories == all.jobcategory %}
              <ul>

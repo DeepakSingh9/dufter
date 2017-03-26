@@ -1,0 +1,14 @@
+{% extends 'jobs/base.html' %}
+    {% block title %}{{JobCategory.name}}{% endblock %}
+
+    {% block content %}
+    {{category}}
+{% for all in job %}
+{% if all.jobcategory == category %}
+   <ul><li> {{all.position}}
+       </li>
+       </ul>
+{% endif %}
+
+{%endfor%}
+    {% endblock %}}
