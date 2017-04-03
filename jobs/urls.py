@@ -7,5 +7,6 @@ urlpatterns=[url(r'^$',views.home_view,name='home'),
              url(r'^registeration/',views.registration,name='registeration'),
              url(r'^login/$',views.User_login,name='login'),
              url(r'^logout/$',views.User_Logout,name='logout'),
+             url(r'apply/(?P<pk>\d+)/$',views.Apply,name='apply'),
 
              ]

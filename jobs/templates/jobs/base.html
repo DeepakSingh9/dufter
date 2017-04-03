@@ -1,16 +1,29 @@
-{% load staticfiles %}
+<!--{% load staticfiles %}-->
 
 <html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    {% block title %}{% endblock %}
+
+   <!-- <title>Dufter version 0.0</title>
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
     <link href='//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="{% static 'css/jobs.css' %}">
+    <link rel="stylesheet" href="{% static 'css/jobs.css' %}"> -->
 </head>
+
+
 <body>
+
+<div class="page-header">
+    <h1>dufter version 0.0</h1>
+    <div class="navigation-tab">
+     <ul>
+         <li><a href="">Home</a></li>
+         <li><a href="">Contact</a></li>
+     </ul>
+    </div>
+</div>
 {% if user.is_authenticated %}
 <h2>hello {{user.username}} !!!</h2>
 

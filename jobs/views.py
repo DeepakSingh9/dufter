@@ -6,7 +6,7 @@ from django.views.generic import View
 
 
 # Create your views here.
-from .models import JobCategory,Job,Profile
+from .models import JobCategory,Job,Profile,Job_Application
 from django.contrib.auth.decorators import login_required
 from .forms import UserForm,UserProfileForm
 
@@ -90,3 +90,31 @@ def User_Logout(request):
     logout(request)
 
     return HttpResponseRedirect('/jobs/')
+
+
+
+@login_required()
+def job_apply(request,pk):
+    job=Job.objects.get(pk=pk)
+
+
+
+def Apply(request,pk):
+    job = Job.objects.get(pk=pk)
+    if request.method=='POST':
+
+        user = request.user
+        if user.is_authenticated():
+            jobapp=Job_Application.objects.create(profile=user,job_applied=job)
+            jobapp.save()
+            return HttpResponse('Great,you have successfully applied for this job')
+
+    else:
+        return render(request,'jobs/job_detail_apply.html',{'job':job})
+
+
+
+
+
+
+

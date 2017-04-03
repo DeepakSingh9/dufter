@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import JobCategory,Job,Profile
+from .models import JobCategory,Job,Profile,Job_Application
 
 
 
@@ -15,9 +15,14 @@ class JobAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug':('position','jobcategory',),}
     list_display = ['position','jobcategory','organisation']
 
+
+class JobApplicationAdmin(admin.ModelAdmin):
+    list_display = ['profile','job_applied']
+
 admin.site.register(Job,JobAdmin)
 admin.site.register(Profile, ProfileAdmin)
 admin.site.register(JobCategory,JobCategoryAdmin)
+admin.site.register(Job_Application,JobApplicationAdmin)
 
 
 

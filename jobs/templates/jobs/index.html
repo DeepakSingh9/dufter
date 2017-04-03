@@ -1,25 +1,29 @@
-{% extends 'jobs/base.html' %}
+<!--{% extends 'jobs/base.html' %}-->
 
     {% block title %}Home{% endblock %}
 
     {% block content %}
 
-<div>
+<div class="job-block">
 {% for categories in category_list %}
-    <p><a href="{% url 'category_job_list' pk=categories.pk %}">{{categories.name}}</a></p>
-    {% for all in job %}
+    <div class="category-name"><h1><a href="{% url 'category_job_list' pk=categories.pk %}">{{categories.name}}</a></h1></div>
+  <div class="job-list">
+      <div class="job-title">
+      {% for all in job %}
         {% if categories == all.jobcategory %}
              <ul>
-                 <li><b>{{all.position}}</b>
-                     <h6>{{all.organisation}}</h6>
-                     <h6>{{all.location}}</h6>
-                     <h6>{{all.keyskills}}</h6>
+                 <a href="{% url 'apply' pk=all.pk %}"><li><h3>{{all.position}}</h3></a></br>
+                   company:  <h6>{{all.organisation}}</h6>
+                   location:  <h6>{{all.location}}</h6>
+                   required:  <h6>{{all.keyskills}}</h6>
                      <h6>{{all.summary}}</h6>
                  </li>
 
              </ul>
         {% endif %}
-    {% endfor %}
+      {% endfor %}
+       </div>
+  </div>
 {% endfor %}
 
 

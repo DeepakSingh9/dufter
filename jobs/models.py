@@ -44,5 +44,17 @@ class Profile(models.Model):
     keyskills=models.CharField(max_length=128,blank=True,null=True)
     experience=models.IntegerField(blank=True,null=True)
 
+
+
     def __str__(self):
         return self.user.username
+
+
+
+class Job_Application(models.Model):
+    profile=models.ForeignKey(User,on_delete=models.CASCADE)
+    job_applied=models.ForeignKey(Job,on_delete=models.CASCADE)
+
+
+
+
