@@ -15,7 +15,8 @@ class JobCategory(models.Model):
         super(JobCategory, self).save(*args, **kwargs)
 
     def __str__(self):
-        return self.name
+        return self.slug
+    
 
     class Meta:
         verbose_name_plural="JobCategories"
